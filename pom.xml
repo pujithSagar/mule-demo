@@ -12,7 +12,7 @@
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
+		<mule.maven.app.plugin.version>1.8</mule.maven.app.plugin.version>
 		<app.runtime>4.1.5</app.runtime>
 		<mule.maven.plugin.version>3.2.7</mule.maven.plugin.version>
 	<munit.version>2.1.5</munit.version>
@@ -22,13 +22,14 @@
 		<plugins>
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<version>${mule.maven.plugin.version}</version>
+				<artifactId>mule-app-maven-plugin</artifactId>
+				<version>${mule.maven.app.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<copyToAppsDirectory>true</copyToAppsDirectory>
 				</configuration>
 			</plugin>
-		<plugin>
+			<plugin>
                 <groupId>com.mulesoft.munit.tools</groupId>
                 <artifactId>munit-maven-plugin</artifactId>
                 <version>${munit.version}</version>
@@ -51,6 +52,25 @@
                     </coverage>
                 </configuration>
             </plugin>
+            <plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<version>${mule.maven.plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+			        <cloudHubDeployment>
+			            <uri>https://anypoint.mulesoft.com</uri>
+			            <muleVersion>${app.runtime}</muleVersion>		            
+			            <username>${anypoint.username}</username>
+                    	<password>${anypoint.password}</password>
+                    	<environment>${anypoint.environment}</environment>
+			            <applicationName>mule-demo</applicationName>
+			            <properties>
+			                <key>value</key>
+			            </properties>
+			        </cloudHubDeployment>
+   				</configuration>
+			</plugin>
         </plugins>
 	</build>
 
